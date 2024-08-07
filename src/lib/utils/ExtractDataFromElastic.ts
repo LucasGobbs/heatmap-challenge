@@ -21,13 +21,14 @@ export class ExtractDataFromElastic implements IDataPointExtractor {
       return [false, JSON.stringify(error)];
     }
   }
+
   public getKeys(): string[] {
     return this.groupKeys;
   }
+
   public getDataFromKey(key: string): DataPointWithMetadata[] {
-    if (key) {
-      return this.formattedData[key];
-    }
+    if (key) return this.formattedData[key];
+
     return this.getFirstItem();
   }
 
@@ -52,6 +53,7 @@ export class ExtractDataFromElastic implements IDataPointExtractor {
       return groups;
     }, {});
   }
+
   extractPropertiesFromLines(lines: string[]): DataPointWithMetadata[] {
     return lines.map(this.extractPropertiesFromLine.bind(this));
   }

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onMount, onDestroy } from "svelte";
   import ComboBox from "../ui/Combobox.svelte";
   import HeatmapOptionsSliders from "./HeatmapOptionsSliders.svelte";
@@ -12,6 +13,7 @@
   import { MinSliderStore, MaxSliderStore } from "./SliderStore.js";
 
   import { heatmapDefaultConfig } from "./HeatmapConfig";
+  import { toast } from "@zerodevx/svelte-toast";
 
   export let jsonData: string = "";
   export let imageBase64: string = "";
@@ -32,7 +34,14 @@
         height: originalSize.height,
       };
       const extractDataFromElastic = new ExtractDataFromElastic();
-      extractDataFromElastic.extract(jsonData);
+      const [result, err] = extractDataFromElastic.extract(jsonData);
+
+      if (!result) {
+        toast.push("Error parsing JSON File");
+        console.log(err);
+        return;
+      }
+
       const filterOptions = extractDataFromElastic.getKeys();
       jsonDataOptions = filterOptions.map((value) => ({ value }));
 
@@ -55,6 +64,7 @@
         max: $MaxSliderStore,
         data: adjustedPoints,
       });
+
       heatmapInstance.repaint();
     }
   }
@@ -87,10 +97,12 @@
 
       createHeatmap();
     };
+
     img.src = imageBase64;
   });
 </script>
 
+<SvelteToast />
 <div class="flex flex-row w-full h-full mt-10">
   <div
     class=" lg:w-2/3 lg:h-full object-scale-down rounded-lg bg-gray-800"
