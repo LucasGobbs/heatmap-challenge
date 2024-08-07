@@ -28,9 +28,7 @@
   function createHeatmap() {
     if (heatmapDivReference && jsonData) {
       const currentSize = {
-        // width: imageDivReference.clientWidth,
         width: originalSize.width,
-        // height: imageDivReference.clientHeight,
         height: originalSize.height,
       };
       const extractDataFromElastic = new ExtractDataFromElastic();
@@ -134,8 +132,6 @@
 <style>
   #heatmapContainer {
     position: relative;
-    /* width: 800px;
-    height: 500px; */
   }
 
   img {

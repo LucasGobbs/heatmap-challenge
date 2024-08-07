@@ -5,7 +5,7 @@ import { sveltePreprocess } from 'svelte-preprocess'
 import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/heatmap/',
+  base: '/heatmap-challenge/',
   plugins: [
     svelte({
       preprocess: sveltePreprocess({
