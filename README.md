@@ -4,6 +4,11 @@ An aplication that creates an heatmap based on an jsonfile and a image
 
 ## About
 
+Application Running
+![Application Running](/images/gitprints/application.png)
+
+### Flow
+
 Initial Screen
 ![Initial Screen of APP](/images/gitprints/started_app.png)
 
@@ -43,8 +48,10 @@ npm run dev
 
 Then open the project in: http://localhost:5173/heatmap/
 
-## Code 
+## Code
+
 All the code is divided in the following architecture
+
 - /src/lib
   - /components - The Componenets that are used in the projects (and their stores)
     - /components/ui - Components pushed from external repositories (shadcn)
@@ -52,7 +59,8 @@ All the code is divided in the following architecture
   - /pages - The pages of the app
   - /utils - TS code that is used in the components but are'nt in the frontend context
 
-
 The parsing of the json file is inside the **ExtractDataFromElastic.ts** in which implements the interface **IDataPointExtractor.ts**
-> [/src/lib/utils/ExtractDataFromElastic.ts](www.google.com)
-> [/src/lib/interfaces/IDataPointExtractor.ts](www.google.com)
+
+> [/src/lib/utils/ExtractDataFromElastic.ts](https://github.com/LucasGobbs/heatmap-challenge/blob/master/src/lib/utils/ExtractDataFromElastic.ts)
+>
+> [/src/lib/interfaces/IDataPointExtractor.ts](https://github.com/LucasGobbs/heatmap-challenge/blob/master/src/lib/interfaces/IDataPointExtractor.ts)
