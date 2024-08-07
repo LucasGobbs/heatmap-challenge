@@ -26,7 +26,7 @@
 
   let originalSize: Size;
   let imageDivReference: HTMLImageElement;
-
+  let heatmapWasCreated = false;
   function createHeatmap() {
     if (heatmapDivReference && jsonData) {
       const currentSize = {
@@ -41,6 +41,7 @@
         console.log(err);
         return;
       }
+      heatmapWasCreated = true;
 
       const filterOptions = extractDataFromElastic.getKeys();
       jsonDataOptions = filterOptions.map((value) => ({ value }));
@@ -70,21 +71,27 @@
   }
 
   $: {
-    const flag = originalSize;
-    createHeatmap();
+    if (heatmapWasCreated) {
+      const flag = originalSize;
+      createHeatmap();
+    }
   }
 
   $: {
-    const minValue = $MinSliderStore;
-    const maxValue = $MaxSliderStore;
+    if (heatmapWasCreated) {
+      const minValue = $MinSliderStore;
+      const maxValue = $MaxSliderStore;
 
-    heatmapInstance?.setDataMax(maxValue);
-    heatmapInstance?.setDataMin(minValue);
+      heatmapInstance?.setDataMax(maxValue);
+      heatmapInstance?.setDataMin(minValue);
+    }
   }
 
   function onChoosedOption(event: CustomEvent<any>) {
-    filterToHeatmap = event.detail.value;
-    createHeatmap();
+    if (heatmapWasCreated) {
+      filterToHeatmap = event.detail.value;
+      createHeatmap();
+    }
   }
 
   onMount(() => {
